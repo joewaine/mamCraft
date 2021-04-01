@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{% if pageTitle is defined and pageTitle is not empty %}{{ pageTitle }} | {% endif %}{{ generalInfo.fullName | lower }} | {{ generalInfo.tagline }}</title>
+
+	<!-- Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% if metaDescription is defined %}
+	<meta property="description" content="{{ metaDescription }}">
+{% endif %}
+{% if metaKeywords is defined and metaKeywords | length %}
+	<meta property="keywords" content="{% for k in metaKeywords %}{{ k }}{% if loop.last != true %}, {% endif %}{% endfor %}">
+{% endif %}
+{% if metaRobots is defined %}
+	<meta property="robots" content="{{ metaRobots }}">
+{% endif %}
+
+	<!-- Open Graph -->
+	<meta property="og:title" content="{{ generalInfo.fullName }}" />
+	<meta property="og:type" content="restaurant" />
+	<meta property="og:url" content="http://mamnoonrestaurant.com" />
+	<meta property="og:image" content="http://mamnoonrestaurant.com/assets/img/logo-mamnoon-opg.png" />
+	<meta property="og:site_name" content="Mamnoon Restaurant | Seattle" />
+	<meta property="og:description" content="A Modern Union of Middle Eastern Cuisines" />
+
+	<!-- Fonts -->
+	<link href="http://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet" type="text/css">
+
+	<!-- Styles -->
+	{{ craft.minimee.css([
+			'/assets/css/style.css',
+			'/assets/css/responsive.css',
+			'/assets/css/opentable.css'
+		])
+	}}
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script>
+		var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-36474445-1']);
+			_gaq.push(['_trackPageview']);
+		(function() {
+			var ga   = document.createElement('script');
+			ga.type  = 'text/javascript';
+			ga.async = true;
+			ga.src   = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s    = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+	{% block head %}
+	{% endblock %}
+</head>
+
+<body>
+<!-- <hello joseph waine 2017> -->
+{% block title %}
+
+{% set bannerImage = {
+	width: 1600,
+	height: 300
+} %}
+
+<div id="title"{% if generalInfo.headerImage | length %} style="background-image: url({{ generalInfo.headerImage[0].getUrl(bannerImage) }});"{% endif %}>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h1><a href="{{ siteUrl }}">{{ siteName }}</a></h1>
+				<p>{{ generalInfo.tagline }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% include "parts/nav" %}
+
+{% block content %}
+{% endblock %}
+
+{% block social %}
+<div id="social">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h2>like us</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 offset3">
+				<p>
+					<a href="https://twitter.com/mamnoontoo" target="_blank" class="twitter" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-twitter'])">Visit our Twitter page</a>
+				</p>
+			</div>
+			<div class="span2">
+				<p>
+					<a href="http://facebook.com/mamnoonrestaurant" target="_blank" class="facebook" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-facebook'])">Visit our Facebook page</a>
+				</p>
+			</div>
+			<div class="span2">
+				<p>
+					<a href="http://instagram.com/mamnoonrestaurant" target="_blank" class="instagram" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-instagram'])">Visit our Instagram page</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block thanks %}
+<div id="thanks">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h2>thank you</h2>
+				<p class="circle-btns">
+					<a class="pull-left" href="https://rez.urbanspoon.com/reservation/start/6336?source=selfhost" onclick="_gaq.push(['_trackEvent', 'action', 'reserve', 'reserve-bottom'])">reserve online</a>
+
+					<span class="or">or</span>
+					<a class="pull-right telephone" href="tel:+1{{ generalInfo.phoneNumber | replace('-', '') }}" onclick="_gaq.push(['_trackEvent', 'action', 'call', 'call-bottom'])">
+						206 <nobr>{{ generalInfo.phoneNumber | replace({'206-': ''}) }}</nobr>
+					</a>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<p>{{ generalInfo.reservationNote }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+
+<footer id="foot">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<p>
+					<img src="http://mamnoonrestaurant.com/assets/img/logo-arabic.png">
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+{% endblock %}
+
+
+{% block globalScripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+{{ craft.minimee.js([
+		'/assets/js/swipe.min.js',
+		'/assets/js/jquery.scrolldepth.min.js',
+		'/assets/js/bootstrap.min.js',
+		'/assets/js/bootstrap-transition.js',
+		'/assets/js/unslider.js',
+		'/assets/js/jquery.sticky.js',
+		'/assets/js/mamnoon.js'
+	])
+}}
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+
+<script type="text/javascript">
+$('body').prepend('<div id="openlink" style="position:fixed;bottom: 10px;right: 10px;width:100px;height:100px;background:black;z-index: 100;display:none;"><a href="" target="_blank" style="width:100%;height:100px;background:green;">link</a></div>');
+</script>	
+
+</body>
+</html>

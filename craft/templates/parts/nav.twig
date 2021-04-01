@@ -1,0 +1,43 @@
+{% set items = {
+	'hours': '#hours-loc',
+	'menu': '#menu',
+	'people': '#people',
+	'in the news': '#news',
+	'giving': '#giving',
+	'blog' : '/blog'
+
+} -%}
+
+<nav id="nav">
+
+	<ul>
+	{% for label,link in items -%}
+		<li{% if '/' ~ craft.request.getSegment(1) == link %} class="active"{% endif %}>
+			<a href="{{ siteUrl(link) }}">{{ label }}</a>
+		</li>
+	{%- endfor %}
+<!--<li><a onclick="event.preventDefault()" class="upserve-olo-button upserve-olo-opener">order online</a></li>-->
+		<!--<li style="display:none">
+			<a href="https://bit.ly/2DopcO1" target="_blank">mask policy</a>
+		</li>-->
+	</ul>
+	<a href="#" id="nav-toggle" style="display: none;">&#9776;</a>
+
+
+
+<div class="nav-contact-info" style="width: 80%;pointer-events:none;">
+{{ generalInfo.phoneNumber }}
+<br>
+<a target="_blank" title="View map" href="http://www.google.com/maps?q=1510+Melrose+Ave+Seattle+WA+98122" onclick="_gaq.push(['_trackEvent', 'action', 'map', 'map-text'])">
+{{ locationHours.streetAddress }}
+					</a>
+</div>
+
+<div class="nav-contact-info-2">
+{{ generalInfo.phoneNumber }} &middot;<a target="_blank" title="View map" href="http://www.google.com/maps?q=1510+Melrose+Ave+Seattle+WA+98122" onclick="_gaq.push(['_trackEvent', 'action', 'map', 'map-text'])">
+{{ locationHours.streetAddress }}
+					</a>
+</div>
+
+
+</nav>

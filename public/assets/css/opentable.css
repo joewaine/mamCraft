@@ -1,0 +1,29 @@
+#us_widget {
+	background: transparent !important;
+	padding: 10px 20px 10px 20px !important;
+	border: 0 !important;
+}
+
+.w_header {
+	margin-bottom: 10px !important;
+	text-align: center;
+	text-transform: lowercase;
+	font: 700 16px 'Quicksand', sans-serif !important;
+	color: #c11637 !important;
+	display: none !important;
+}
+
+dt, dd {
+	color: #555 !important;
+}
+
+.w_instructions {
+
+}
+
+.w_button {
+	font: 700 16px 'Quicksand', sans-serif !important;
+	background-color: #c11637 !important;
+	background-image: none !important;
+	border-color: #c11637 !important;
+}

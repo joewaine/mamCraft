@@ -1,0 +1,31 @@
+<div class="span3 sidebar">
+
+	<div class="callout">
+		
+		<h4>categories</h4>
+
+		{% set entryIds = craft.entries.section('blog').ids() %}
+		{% set categories = craft.categories.relatedTo({ sourceElement: entryIds }).groupId(1).find() %}
+
+		<ul>
+		{% for category in categories %}
+			<li><a href="{{ category.url }}">{{ category.title | lower }}</a></li>
+		{% endfor %}﻿
+		</ul>
+
+	</div>
+	
+	<div class="callout">
+		
+		<h4>blog archive</h4>
+
+		<ul>
+		{% set allEntries = craft.entries.section('blog').limit(null) %}
+		{% for date, entries in allEntries | group("postDate|date('Y')") %}
+			<li><a href="{{ siteUrl('/blog/archive/' ~ date) }}">{{ date }}</a></li>
+		{% endfor %}
+		</ul>
+
+	</div>
+	
+</div>

@@ -1,0 +1,28 @@
+{% set blogpagevariable = 'blogpage' %}
+{% extends "_layout" %}
+{% set metaDescription = entry.metaDescription %}
+{% set metaKeywords = entry.metaKeywords %}
+
+{% block content %}
+
+<div class="container margin-top">
+
+	<div class="span7 offset1">
+
+		<div class="post-detail">
+
+			{% include "parts/post" with { entry: entry } %}
+
+		</div>
+
+		{% if entry.hideComments != true %}
+		{% include "parts/disqus" %}
+		{% endif %}
+
+	</div>
+
+	{% include "parts/blog-sidebar" %}
+
+</div>
+
+{% endblock %}

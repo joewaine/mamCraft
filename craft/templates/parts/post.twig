@@ -1,0 +1,205 @@
+{% set floatedImage = {
+	width: 400,
+	height: 400,
+	mode: 'fit',
+	quality: 100
+} %}
+
+{% set fullImage = {
+	width: 670,
+	height: 400,
+	mode: 'crop',
+	quality: 100
+} %}
+
+<div class="post-date">
+	<span>{{ entry.postDate | date('M j') }}</span>
+</div>
+
+<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
+<p class="post-author">Posted by <b>{{ entry.author.firstName }}</b></p>
+
+<article class="post-content">
+	{% for block in entry.postBlocks %}
+		{% if block.type == 'text' %}
+		<div class="text">
+			{{ block.body }}
+		</div>
+		{% elseif block.type == 'image' %}
+		<div class="image {% if block.assets | length == 1 %}image-{{ block.position }}{% else %}image-slides{% endif %}">
+			{% if block.assets | length > 1 %}
+				<ul>
+				{% for image in block.assets %}
+					<li>
+						<img src="{{ image.getUrl(fullImage) }}"{% if loop.first != true %} style="display: none;"{% endif %} alt="">
+						{% if image.caption %}
+							<p class="caption">{{ image.caption }}</p>
+						{% endif %}
+					</li>
+				{% endfor %}						
+				</ul>
+			{% else %}
+				{% if block.position == 'left' or block.position == 'center' or block.position == 'right' %}
+					{% for image in block.assets %}
+						<img src="{{ image.getUrl(floatedImage) }}" alt="">
+						{% if image.caption %}
+							<p class="caption">{{ image.caption }}</p>
+						{% endif %}
+					{% endfor %}
+				{% elseif block.position == 'full' %}
+					{% for image in block.assets %}
+						<img src="{{ image.getUrl(fullImage) }}" alt="">
+						{% if image.caption %}
+							<p class="caption">{{ image.caption }}</p>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			{% endif %}
+		</div>
+		{% elseif block.type == 'recipe' %}
+		<div class="recipe">
+			
+			<h4>{{ block.recipeName }}</h4>
+
+			<ul>
+				{% for row in block.ingredients %}
+				<li>{% if row.quantity %}<span class="qty">{{ row.quantity }}</span>{% endif %} {{ row.ingredient }}</li>
+				{% endfor %}
+			</ul>
+
+			{% if block.instructions %}
+			<hr>
+			{% endif %}
+
+			{{ block.instructions }}
+
+		</div>
+		{% endif %}
+	{% endfor %}
+
+	{% if includeComments is defined and includeComments %}
+	<p class="comments"><a href="{{ entry.url }}#disqus_thread" class="comment-link" data-disqus-identifier="blog-post-{{ entry.id }}">Comments</a></p>
+	{% endif %}
+
+</article>
+
+
+
+<style>
+
+article.post-content p {
+	line-height: 1.5em;
+}
+
+article .recipe {
+	background: #E6E4E1;
+	padding: 0.8em 1.5em 0.8em 1em;
+	display: inline-block;
+	width: auto;
+}
+
+article .image {
+	display: block;
+	margin: .3em 0 1.5em 0;
+}
+
+article .image img {
+	margin: 0 0 0.5em 0;
+	padding: 10px;
+	background: #EAE6DB;
+	border-bottom: 2px solid #d1ccbe;
+	display: block;
+	overflow: hidden;
+	max-width: 100%;
+}
+
+article .image .caption {
+	font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+}
+
+article .image-left {
+	float: left;
+	margin-right: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+article .image-right {
+	float: right;
+	margin-left: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+article .image-center {
+	clear: both;
+	margin: 1em auto 2em auto;
+	text-align: center;
+}
+
+article .image-center img {
+	margin: 2em auto 1em auto;
+}
+
+article .image-slides {
+	position: relative; 
+	overflow: auto;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+	text-align: center;
+	display: block;
+}
+
+article .image-slides ul {
+	margin: 0;
+	padding: 0;
+}
+
+article .image-slides li {
+	list-style: none;
+	float: left;
+}
+
+article .image-slides img {
+	padding: 0;
+	border: 0;
+}
+
+article .image-slides .dots {
+	margin: 0;
+	position: absolute;
+	bottom: 15px;
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+
+article .image-slides .dots li {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 0 4px;
+	text-indent: -999em;
+	border: 2px solid #fff;
+	border-radius: 6px;
+	cursor: pointer;
+	opacity: .4;
+	-webkit-transition: background .5s, opacity .5s;
+	-moz-transition: background .5s, opacity .5s;
+	transition: background .5s, opacity .5s;
+	float: none;
+}
+
+article .image-slides .dots li.active {
+	background: #fff;
+	opacity: 1;
+}
+
+article .comments {
+	text-align: center;
+	clear: both;
+	margin: 1em 0;
+}
+
+</style>

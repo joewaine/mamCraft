@@ -1,0 +1,375 @@
+{% extends "_layout" %}
+{% set metaDescription = entry.metaDescription %}
+{% set metaKeywords = entry.metaKeywords %}
+
+{% block content %}
+{% cache %}
+{% if craft.entries.section('announcements').limit(1) | length %}
+{% set announcement = craft.entries.section('announcements').limit(1).first() %}
+<section id="announcement">
+	<div class="container">
+		<div class="row">
+			<div class="offset2 span8">
+				<h3>{{ announcement.title }}</h3>
+
+				{{ announcement.body }}
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+
+{% cache %}
+{% if craft.entries.section('familymeal').limit(1) | length %}
+{% set familymeal = craft.entries.section('familymeal').limit(1).first() %}
+
+
+
+
+<section id="family-meal" style="padding: 50px 0px;background: #EAE6DC;">
+	<div class="container">
+			<div class="row">
+					<div class="span12">
+
+
+<h3 class="family-meal-formatting-title">
+{{ familymeal.title | raw }}
+</h3>
+
+
+<h3 class="family-meal-formatting-sub-title">
+{{ familymeal.subtitle | raw }}
+</h3>
+
+{% if familymeal.menuPicture %}
+<h3>
+{% for asset in familymeal.menuPicture %}
+     <a href="{{ asset.url }}" target="_blank" style="color: #c11637;"><u>Click Here For Our Frequently Update menu!</u></a>                             
+{% endfor %}
+</h3>
+{% else %}
+
+no link
+{% endif %}
+
+
+
+
+
+
+<p class="family-meal-formatting-body">
+{{ familymeal.familymealbody | raw }}
+</p>
+<br>
+
+
+<p class="family-meal-formatting-bottom-line">
+<b>{{ familymeal.bottomline | raw }}</b>
+</p>
+
+
+
+					</div>
+			</div>
+	</div>
+</section>
+
+
+
+
+
+
+
+{% endif %}
+{% endcache %}
+
+<section id="reservations">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+
+				<h3>reservations gladly accepted</h3>
+
+				<p>{{ generalInfo.reservationNote }}</p>
+
+				<br>
+
+				<p class="circle-btns">
+			<a class="pull-left" href="#reserve" onclick="_gaq.push(['_trackEvent', 'action', 'reserve', 'reserve-bottom'])">reserve online</a>
+					<span class="or">or</span>
+					<a class="pull-right telephone" href="tel:+1{{ generalInfo.phoneNumber | replace('-', '') }}" onclick="_gaq.push(['_trackEvent', 'action', 'call', 'call-bottom'])">
+						206 <nobr>{{ generalInfo.phoneNumber | replace({'206-': ''}) }}</nobr>
+					</a>
+				</p>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="hours-loc">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+
+				<h3>open daily, hours:</h3>
+
+				<ul>
+					{% for row in locationHours.hours %}
+					<li>
+						<strong>
+							<span class="accent">{{ row.menu }}</span></strong> | <strong>{{ row.days }}
+						</strong>
+						<br>{{ row.times }}
+					</li>
+					{% endfor %}
+				</ul>
+
+				<hr>
+
+				<p class="address">
+					<span class="location">
+						<span class="accent">at melrose square</span>
+					</span>
+					<a class="web-symbol map-icon" target="_blank" title="View map" href="http://www.google.com/maps?q=1510+Melrose+Ave+Seattle+WA+98122" onclick="_gaq.push(['_trackEvent', 'action', 'map', 'map-icon'])">
+					?
+					</a>
+					<a target="_blank" title="View map" href="http://www.google.com/maps?q=1510+Melrose+Ave+Seattle+WA+98122" onclick="_gaq.push(['_trackEvent', 'action', 'map', 'map-text'])">
+					{{ locationHours.streetAddress }}
+					</a>
+				</p>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+{% if entry.homePageSlides | length %}
+<section id="slideshow">
+
+	<h2>the restaurant</h2>
+
+	<div class="slides">
+
+		<ul>
+			{% for slide in entry.homePageSlides %}
+			<li>
+				<img {% if loop.first %}src{% else %}data-src{% endif %}="{{ slide.getUrl('largeSlide') }}" {% if loop.first != true %}src="/assets/img/blank.gif" class="lazy" {% endif %}width="1280" height="720" alt="">
+			</li>
+			{% endfor %}
+		</ul>
+
+		{% if entry.homePageSlides | length > 1 %}
+		<div class="slides-nav">
+			<a class="prev" href="#">&lt;</a>
+			<a class="next" href="#">&gt;</a>
+		</div>
+		{% endif %}
+
+	</div>
+</section>
+{% endif %}
+
+{% include "parts/menu" %}
+
+{% if entry.storySlides | length %}
+
+{% set storySlide = {
+	'width': 768,
+	'height': 513,
+} %}
+
+<section id="people">
+
+	<h2>people</h2>
+
+	<div class="slides">
+		<ul>
+			{% for slide in entry.storySlides %}
+			<li>
+				<div class="slide-content-wrap">
+					<div class="slide-content">
+						<div class="container-fluid">
+							<div class="row-fluid">
+								<div class="span6">
+									<img src="{{ slide.image[0].getUrl(storySlide) }}" width="768" height="513" alt="">
+								</div>
+								<div class="span6">
+									{% if slide.heading %}
+									<h3 style="text-align: left;">{{ slide.heading }}</h3>
+									{% endif %}
+									{{ slide.text }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+
+		{% if entry.storySlides | length > 1 %}
+		<div class="slides-nav">
+			<a class="prev" href="#">&lt;</a>
+			<a class="next" href="#">&gt;</a>
+		</div>
+		{% endif %}
+	</div>
+
+</section>
+{% endif %}
+
+{% set publicationThumb = {
+	width: 128,
+	height: 128,
+	mode: 'fit'
+} %}
+
+<section id="news">
+
+	<h2>in the news</h2>
+
+		<center><div class="createsend-button"  style="height:35px;display:inline-block;" data-listid="i/CA/F26/FFD/F88A18DDCAC501B7">
+            </div>
+		<center><script type="text/javascript">(function () { var e = document.createElement('script'); e.type = 'text/javascript'; e.async = true; e.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://btn.createsend1.com/js/sb.min.js?v=3'; e.className = 'createsend-script'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s); })();</script>
+
+
+	<div class="news-items">
+
+		{% for news in craft.entries.section('news').order('postDate desc') %}
+		<div class="news-item">
+			<a class="publication" href="{{ news.newsUrl }}" target="_blank">
+			{% if news.publicationImage | length %}
+			<div class="news-image" style="background-image: url({{ news.publicationImage[0].getUrl(publicationThumb) }});">
+			{{ news.title }}
+				<!--<img src="{{ news.publicationImage[0].getUrl(publicationThumb) }}" alt="{{ news.title }}">-->
+			</div>
+			{% endif %}
+			<span class="date">{{ news.postDate | date('M Y') }}</span>
+				<div class="news-line-title">{{ news.title }}</div>
+			</a>
+		</div>
+		{% endfor %}
+
+	</div>
+
+</section>
+
+<section id="giving">
+
+
+
+	<h2>{{ entry.givingTitle }}</h2>
+
+	{{ entry.givingText }}
+
+
+
+	{% if entry.givingLink %}
+	<p><a href="{{ entry.givingLink }}" id="donate">donate</a></p>
+	{% else %}
+	<br>
+	{% endif %}
+
+</section>
+
+{% endcache %}
+{% endblock %}
+
+{% block thanks %}
+<div id="reserve">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h2>{{ entry.reservationsTitle }}</h2>
+				<p>{{ generalInfo.reservationNote }}</p>
+
+	<center style="position: relative; width: 100%; text-align: center;"><div class="urbanspoon-widget">
+{# new OT link code #}
+		  <a href="http://www.opentable.com/single.aspx?rid=98197&restref=98197"></a>
+		  <a href="http://www.opentable.com/single.aspx?rid=98197&restref=98197"></a>
+{#	old resy link code
+<a href="https://resy.com/cities/sea/mamnoon" id="resyButton-pm8mjwuf">Book your Mamnoon reservation on Resy</a> #}
+
+{# new OT script #}
+<script type='text/javascript' src='//www.opentable.com/widget/reservation/loader?rid=98197&domain=com&type=standard&theme=standard&lang=en&overlay=false&iframe=true'></script>
+
+
+<script type='text/javascript' src='//www.opentable.com/widget/reservation/loader?rid=98197&domain=com&type=wide&theme=wide&lang=en&overlay=false&iframe=true'></script>
+
+{# old resy script
+ <script src="https://widgets.resy.com/embed.js"></script>
+<script>
+resyWidget.addButton(document.getElementById('resyButton-pm8mjwuf'), {"venueId":703,"apiKey":"FjLERdXTFaVKyhr2KYxRHxg3rqUFMYxR","replace":true});
+</script> #}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+jQuery(function(){
+	var $nav         = $("#nav");
+	var $menuItems   = $nav.find('a[href*="#"]');
+	var menuHeight   = $nav.outerHeight();
+	var animating    = false;
+	var activeOffset = 0;
+	var windowHash   = window.location.hash;
+
+	$(window).load(function(e){
+		if (windowHash != '') {
+			e.preventDefault();
+			var $cur = $('#nav [href*="'+windowHash+'"]').parent();
+			$cur.addClass("active");
+		}
+		watchScroll();
+	});
+
+	$menuItems.click(function(e){
+		var hash = $(this).attr('href').replace(/^.*?#/,'');
+		scrollToHash(hash);
+		e.preventDefault();
+
+		var el = document.getElementById(hash);
+		var id = el.id;
+		el.removeAttribute('id');
+		location.hash = hash;
+		el.setAttribute('id',id);
+
+		$nav.find('.active').removeClass('active');
+		$(this).parent().addClass("active");
+
+		if ($("#nav-toggle").is(":visible")) {
+			$("#nav ul").stop().slideUp();
+		}
+	});
+
+	function scrollToHash(hash) {
+		if ($('[id='+hash+']').length > 0) {
+			activeOffset = $('[id='+hash+']').offset().top - menuHeight;
+			animating = true;
+			$("html, body").animate({ scrollTop: activeOffset }, {
+				duration: 500,
+				complete: function(){
+					animating = false;
+				}
+			});
+		}
+	}
+
+	function watchScroll() {
+		$(window).scroll(function(){
+			var offset = $(this).scrollTop() - menuHeight;
+			if (activeOffset != 0 && animating === false && (Math.abs(offset - activeOffset) > 100)) {
+				$nav.find('.active').removeClass('active');
+			} else if (activeOffset == 0) {
+				activeOffset = offset;
+			}
+		});
+	}
+});
+</script>
+{% endblock %}

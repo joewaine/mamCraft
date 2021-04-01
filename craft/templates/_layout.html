@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{% if pageTitle is defined and pageTitle is not empty %}{{ pageTitle }} | {% endif %}{{ generalInfo.fullName | lower }} | {{ generalInfo.tagline }}</title>
+
+	<!-- Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% if metaDescription is defined %}
+	<meta property="description" content="{{ metaDescription }}">
+{% endif %}
+{% if metaKeywords is defined and metaKeywords | length %}
+	<meta property="keywords" content="{% for k in metaKeywords %}{{ k }}{% if loop.last != true %}, {% endif %}{% endfor %}">
+{% endif %}
+{% if metaRobots is defined %}
+	<meta property="robots" content="{{ metaRobots }}">
+{% endif %}
+
+	<!-- Open Graph -->
+	<meta property="og:title" content="{{ generalInfo.fullName }}" />
+	<meta property="og:type" content="restaurant" />
+	<meta property="og:url" content="http://mamnoonrestaurant.com" />
+	<meta property="og:image" content="http://mamnoonrestaurant.com/assets/img/logo-mamnoon-opg.png" />
+	<meta property="og:site_name" content="Mamnoon Restaurant | Seattle" />
+	<meta property="og:description" content="A Modern Union of Middle Eastern Cuisines" />
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet" type="text/css">
+
+	<!-- Styles -->
+	
+	<!-- minimee way that doest current work -->
+	<!-- {{ craft.minimee.css([
+			'/assets/css/style.css',
+			'/assets/css/responsive.css',
+			'/assets/css/opentable.css'
+		])
+	}} -->
+<!-- minimee way that doest current work -->
+
+
+
+<!-- uncompressed way  -->
+
+	{% includeCssFile "/assets/css/style.css" %}
+	{% includeCssFile "/assets/css/responsive.css" %}
+	{% includeCssFile "/assets/css/opentable.css" %}
+
+<!-- uncompressed way  -->
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script>
+		var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-36474445-1']);
+			_gaq.push(['_trackPageview']);
+		(function() {
+			var ga   = document.createElement('script');
+			ga.type  = 'text/javascript';
+			ga.async = true;
+			ga.src   = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s    = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+	{% block head %}
+	{% endblock %}
+
+	<script type="text/javascript">
+		!function(t,o,c,k){if(!t.tock){var e=t.tock=function(){e.callMethod?    e.callMethod.apply(e,arguments):e.queue.push(arguments)};t._tock||(t._tock=e),    e.push=e,e.loaded=!0,e.version='1.0',e.queue=[];var f=o.createElement(c);f.async=!0,    f.src=k;var g=o.getElementsByTagName(c)[0];g.parentNode.insertBefore(f,g)}}(    window,document,'script','https://www.exploretock.com/tock.js');    tock('init', 'mamnoonrestaurant');    </script>
+	   
+	   </script>
+
+
+<style type="text/css">
+
+
+.TockWidgetWrapper .TockButtonWidgetContainer{    
+text-align: center !important;
+margin: 20px auto !important;
+}
+
+.TockWidgetWrapper .TockButton-buttonContainer{
+    margin-top: 20px !important;
+}
+
+
+.TockWidgetWrapper .TockLogo-container,
+.TockLogo-container .TockButton-iconBlue{
+    display:none !important;
+}
+
+
+.TockWidgetWrapper .TockButton-blue{
+    background-color: #c11637 !important;
+font-family: 'Quicksand, sans-serif' !important;
+color: #ffffff;
+
+}
+
+
+
+.TockWidgetWrapper .TockButton-blue:hover{
+    background-color: #86142a !important;
+}
+
+#reserve{
+display:none !important
+}
+
+
+
+
+
+#mama-dummy-button{
+    background-color: #c11637;
+    color: #fff;
+    text-align: center;
+
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 3px;
+    cursor: pointer;
+    height: 51px;
+    line-height: 52px;
+    text-decoration: none;
+    width: 200px;
+    margin: 18px auto 20px;  
+font-size: 18px;
+}
+
+
+
+
+
+@media only screen and (max-width: 1480px) {
+
+#nav ul li a{
+padding: 15px 15px !important;
+}
+
+}
+
+@media only screen and (max-width: 845px) {
+
+
+#nav ul{
+padding-top: 46px !important;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <style type="text/css">
+    .cls-1widget {
+      fill: #49494a;
+    }
+
+    .cls-2widget {
+      fill: #fff;
+    }
+
+    .widget {
+      color: #fff;
+      width: 280px;
+      position: fixed;
+      right: 0;
+      bottom: 20px;
+      background: #f05d5b;
+      z-index: 1000;
+      padding: 10px;
+      border-radius: 10px 0 0 10px;
+      font-family: sans-serif;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    @media only screen and (max-width: 992px) {
+      .widget {
+        display: none;
+      }
+    }
+
+    .action{
+      margin-top: -15px;
+    }
+  </style>
+  <div class="widget">
+    <a href="https://www.nadimama.com" target="_blank" aria-current="page"
+      class="router-link-exact-active router-link-active"><svg data-v-4ef0a45b="" id="header-logo" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="257.1px"
+        height="69.9px" viewBox="0 0 257.1 69.9" xml:space="preserve" style="overflow: visible;">
+        <defs data-v-4ef0a45b=""></defs>
+        <g data-v-4ef0a45b="" id="Layer_2_1_">
+          <g data-v-4ef0a45b="" id="Layer_1-2_2_">
+            <polygon data-v-4ef0a45b="" points="59.7,45.2 69.9,35 59.7,24.7 59.7,10.2 45.2,10.2 35,0 24.7,10.2 10.2,10.2 10.2,24.7 0,35 10.2,45.2 10.2,59.7 
+			24.7,59.7 35,69.9 45.2,59.7 59.7,59.7 		" class="cls-1widget"></polygon>
+            <path data-v-4ef0a45b=""
+              d="M20.6,29.5l-0.3,0.2L16,28.9v23h3.3V38.1c0-2.6,1.5-5,3.8-6.2v-3.6C22.3,28.6,21.4,29,20.6,29.5z"
+              class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M43.5,27.8c-3.1,0-6,1.4-7.9,3.7l-0.7,0.9l-0.7-0.9c-1.2-1.5-2.8-2.6-4.6-3.2v3.6c2.3,1.2,3.8,3.6,3.8,6.2V52h3.3V38.1
+			c0-3.8,3.1-7,7-7s7,3.1,7,7V52h3.3V38.1C53.8,32.4,49.2,27.8,43.5,27.8L43.5,27.8z" class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M41.8,32.9v6.7h3.4v-6.7c-0.5-0.2-1.1-0.3-1.7-0.2C42.9,32.6,42.4,32.7,41.8,32.9z"
+              class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M45.2,26.5v-1.9c0-5.7-5.8-10.3-11.5-10.3c-2.2,0-3.1,0.7-4.8,2l-0.2,0.1l-4.1-0.8v23.9H28v-15c0.1-3.8,3.4-6.8,7.2-6.7
+			c3.6,0.1,6.5,3,6.7,6.7v1.9c0.6-0.1,1.1-0.1,1.7-0.1C44,26.4,44.5,26.4,45.2,26.5z" class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M86.7,25.2c-1.8,0-3.5,0.6-4.9,1.6l-3.5-0.7v18.1h3.5V33.6c0-2.7,2.2-4.9,4.9-4.9c2.7,0,4.9,2.2,4.9,4.9v10.6h3.5V33.7
+			C95.1,29,91.4,25.3,86.7,25.2z" class="cls-2widget"></path>
+            <polygon data-v-4ef0a45b="" points="142.7,44.2 146.2,44.2 146.2,27.2 142.7,27.9 		" class="cls-2widget">
+            </polygon>
+            <path data-v-4ef0a45b="" d="M137.9,20.4l-3.5,0.7v6.3c-4.1-3.3-10-2.7-13.3,1.4s-2.7,10,1.4,13.3c3.5,2.8,8.4,2.8,11.9,0v1.5l3.5,0.7V20.4z
+			 M128.5,40.7c-3.3,0-6-2.6-6-5.9s2.6-6,5.9-6c3.3,0,6,2.6,6,5.9v0.1C134.4,38,131.7,40.7,128.5,40.7z"
+              class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M146.6,22L146.6,22v-1.3h-1.3l-0.9-0.9l-0.9,0.9h-1.3V22l0,0l-0.9,0.9l0.9,0.9l0,0V25h1.3l0.9,0.9l0.9-0.9h1.3v-1.2
+			l0.9-0.9L146.6,22z" class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M117,44.2l-0.6-3.5v-14l-3.5,0.7c-1.7-1.4-3.8-2.1-6-2.1c-5.2,0.1-9.4,4.3-9.5,9.5c0,5.2,4.2,9.5,9.5,9.5h0.1h10V44.2z
+			 M101,34.8c0-1.6,0.6-3,1.8-4.1c1.1-1.1,2.6-1.8,4.2-1.8c3.3,0,6,2.6,6,5.9v6h-6C103.7,40.8,101,38.1,101,34.8z"
+              class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M176.3,25.4c-2.3,0-4.4,1-5.8,2.7c-2.5-3-6.8-3.6-10-1.5l-3.4-0.6v18.2h3.5V32.9c0-2.2,1.8-4.1,4.1-4s4.1,1.8,4,4.1v11.3
+			h3.5V32.9c0.1-2.2,2.1-4,4.3-3.8c2.1,0.1,3.8,1.8,3.8,3.9v11.3h3.5V33C183.9,28.8,180.5,25.4,176.3,25.4z"
+              class="cls-2widget"></path>
+            <path data-v-4ef0a45b="" d="M227.6,25.4c-2.3,0-4.4,1-5.8,2.7c-2.5-3-6.8-3.6-10-1.5l-3.4-0.6v18.2h3.5V32.9c0.1-2.2,2-4,4.3-3.8
+			c2.1,0.1,3.8,1.8,3.9,3.9v11.2l0,0v0.1h3.5V32.9c0.1-2.2,2.1-4,4.3-3.8c2.1,0.1,3.8,1.8,3.8,3.9v11.3h3.5V33
+			C235.2,28.8,231.8,25.4,227.6,25.4L227.6,25.4z" class="cls-2widget"></path>
+            <path data-v-4ef0a45b=""
+              d="M205.8,44.2l-0.6-3.5v-14l-3.5,0.7c-1.7-1.4-3.8-2.1-6-2.1c-5.2,0.1-9.4,4.3-9.5,9.5c0,5.2,4.2,9.5,9.5,9.5L205.8,44.2z
+			 M189.8,34.8c0-1.6,0.6-3,1.8-4.1c1.1-1.1,2.6-1.8,4.2-1.8c3.3,0,6,2.6,6,5.9v6h-6C192.4,40.7,189.8,38,189.8,34.8L189.8,34.8z"
+              class="cls-2widget"></path>
+            <path data-v-4ef0a45b=""
+              d="M257.1,44.2l-0.6-3.5v-14l-3.5,0.7c-1.7-1.4-3.8-2.1-6-2.1c-5.2,0.1-9.4,4.3-9.5,9.5c0,5.2,4.2,9.5,9.5,9.5h10.1V44.2z
+			 M241.1,34.8c0-1.6,0.6-3,1.8-4.1c1.1-1.1,2.6-1.8,4.2-1.8c3.3,0,5.9,2.7,6,5.9v6h-6C243.7,40.7,241.1,38,241.1,34.8L241.1,34.8z"
+              class="cls-2widget"></path>
+          </g>
+        </g>
+      </svg></a>
+      <!-- <div class="action"> -->
+      <!-- click here! -->
+    <!-- </div> -->
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="display:none;"><button class='upserve-olo-button upserve-olo-opener'>Order Online</button></div>
+<!-- <hello joseph waine 2017> -->
+{% block title %}
+
+{% set bannerImage = {
+	width: 1600,
+	height: 300
+} %}
+
+<div id="title"{% if generalInfo.headerImage | length %} style="background-image: url({{ generalInfo.headerImage[0].getUrl(bannerImage) }});"{% endif %}>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h1><a href="{{ siteUrl }}">{{ siteName }}</a></h1>
+				<p>{{ generalInfo.tagline }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+<style type="text/css">
+
+#giftcardlink{
+	position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 140px;
+    height: 138px;
+	background-image: url(http://mamnoonrestaurant.com/assets/img/gift-card.gif);
+	background-repeat: no-repeat;
+	background-position: top center;
+    overflow: hidden;
+	background-size: 100%;
+color: transparent;
+
+}
+
+#giftcardlink:hover{
+    background-position: 0px 96%;
+	cursor: pointer;
+}
+
+
+@media only screen and (max-width: 960px) {
+
+
+
+	#giftcardlink{
+	position: fixed;
+    top: 20px;
+    right: 20px;
+    width: calc(.75 * 140px);
+    height: calc(.75 * 138px);
+	background-image: url(http://mamnoonrestaurant.com/assets/img/gift-card.gif);
+	background-repeat: no-repeat;
+	background-position: top center;
+    overflow: hidden;
+	background-size: 100%;
+color: transparent;
+z-index: 1000;
+}
+
+#giftcardlink:hover{
+    background-position: 0px 96%;
+	cursor: pointer;
+}
+
+
+
+}
+
+div#Tock_widget_container>div.TockWidgetWrapper .TockButton {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 51px;
+    line-height: 45px;
+    text-decoration: none;
+}
+</style>
+
+
+
+<style type="text/css">
+
+    #beirutgiftcardlink{
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 140px;
+        height: 138px;
+        background-image: url(http://mamnoonrestaurant.com/assets/img/beirut-box.gif);
+        background-repeat: no-repeat;
+        background-position: top center;
+        overflow: hidden;
+        background-size: 100%;
+    color: transparent;
+background-color: transparent !important;    
+    }
+    
+    #beirutgiftcardlink:hover{
+        background-position: 0px 96%;
+        cursor: pointer;
+    }
+    
+    
+    @media only screen and (max-width: 960px) {
+    
+    
+    
+        #beirutgiftcardlink{
+        position: fixed;
+        top: 20px;
+        left:: 20px;
+        width: calc(.75 * 140px);
+        height: calc(.75 * 138px);
+        background-image: url(http://mamnoonrestaurant.com/assets/img/beirut-box.gif);
+        background-repeat: no-repeat;
+        background-position: top center;
+        overflow: hidden;
+        background-size: 100%;
+    color: transparent;
+    z-index: 1000;
+    }
+    
+    #beirutgiftcardlink:hover{
+        background-position: 0px 96%;
+        cursor: pointer;
+    }
+    
+    
+    
+    }
+    
+    
+    </style>
+
+
+
+{% include "parts/nav" %}
+
+
+
+
+{% block content %}
+{% endblock %}
+
+{% block social %}
+<div id="social">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h2>like us</h2>
+				<br>
+			</div>
+		</div>
+		<div class="row desktop-social">
+			<div class="span2 offset3">
+				<p>
+					<a href="https://twitter.com/mamnoontoo" target="_blank" class="twitter" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-twitter'])">Visit our Twitter page</a>
+				</p>
+			</div>
+			<div class="span2">
+				<p>
+					<a href="http://facebook.com/mamnoonrestaurant" target="_blank" class="facebook" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-facebook'])">Visit our Facebook page</a>
+				</p>
+			</div>
+			<div class="span2">
+				<p>
+					<a href="http://instagram.com/mamnoonrestaurant" target="_blank" class="instagram" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-instagram'])">Visit our Instagram page</a>
+				</p>
+			</div>
+		</div>
+
+
+		<div class="row mobile-social">
+			<div class="span12 offset3">
+				<p>
+					<a href="https://twitter.com/mamnoontoo" target="_blank" class="twitter" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-twitter'])">Visit our Twitter page</a>
+					&nbsp;
+					<a href="http://facebook.com/mamnoonrestaurant" target="_blank" class="facebook" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-facebook'])">Visit our Facebook page</a>
+					&nbsp;
+					<a href="http://instagram.com/mamnoonrestaurant" target="_blank" class="instagram" onclick="_gaq.push(['_trackEvent', 'action', 'social', 'social-instagram'])">Visit our Instagram page</a>
+				</p>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+{% endblock %}
+
+{% block thanks %}
+<div id="thanks">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h2>thank you</h2>
+				<p class="circle-btns" style="text-align:left;">
+					<!--<a class="pull-left" href="https://rez.urbanspoon.com/reservation/start/6336?source=selfhost" onclick="_gaq.push(['_trackEvent', 'action', 'reserve', 'reserve-bottom'])">reserve online</a>-->
+
+					<!--<span class="or">or</span>-->
+					<a class="telephone upserve-olo-button upserve-olo-opener" onclick="event.preventDefault()">
+						order<nobr>online</nobr>
+					</a>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<p>{{ generalInfo.reservationNote }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+<!-- {% if blogpagevariable %}
+<!--nothing-->
+{% else %}
+{% include "mailerform.html" %}
+{% endif %}
+
+ <!-- -->
+
+
+{% block footer %}
+
+<footer id="foot">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<p>
+					<img src="http://mamnoonrestaurant.com/assets/img/logo-arabic.png">
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+
+<div style="display:none;pointer-events:none;" id="beirutgiftcardlink" onclick="window.open('https://app.upserve.com/s/mamnoon-llc-seattle'); return false;" onkeypress="window.open('https://app.upserve.com/s/mamnoon-llc-seattle'); return false;">
+
+	gift card
+	-
+	</div>
+
+
+<div id="giftcardlink" onclick="window.open('https://ecommerce.custcon.com/Purchase/Select?c=364cfc03-d428-44bf-b814-1efbdcaed08d'); return false;" onkeypress="window.open('https://ecommerce.custcon.com/Purchase/Select?c=364cfc03-d428-44bf-b814-1efbdcaed08d'); return false;">
+
+	gift card
+	-
+	</div>
+
+{% endblock %}
+
+
+{% block globalScripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+
+<!-- minimee way that doest current work -->
+<!-- {{ craft.minimee.js([
+		'/assets/js/swipe.min.js',
+		'/assets/js/jquery.scrolldepth.min.js',
+		'/assets/js/bootstrap.min.js',
+		'/assets/js/bootstrap-transition.js',
+		'/assets/js/unslider.min.js',
+		'/assets/js/jquery.sticky.min.js',
+		'/assets/js/mamnoon.min.js'
+	])
+}} -->
+<!-- minimee way that doest current work -->
+
+
+
+<!-- uncompressed way  -->
+
+<script type="text/javascript" src="/assets/js/swipe.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.scrolldepth.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-transition.js"></script>
+<script type="text/javascript" src="/assets/js/unslider.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.sticky.min.js"></script>
+<script type="text/javascript" src="/assets/js/mamnoon.min.js"></script>
+
+<!-- uncompressed way  -->
+
+
+
+<script type="text/javascript">
+$("#giftcardlink").prev().css( "background", "#EAE6DC" );
+$("#beirutgiftcardlink").css('background-image','url(http://mamnoonrestaurant.com/assets/img/beirut-box.gif)');
+$("#beirutgiftcardlink").css('background-size','100%');
+</script>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+<script src='https://app.upserve.com/platform/olo-widget.js?mamnoon-llc-seattle' type='text/javascript' id='upserve-olo-script'></script>
+
+
+
+
+
+
+
+<script src="https://www.sevenrooms.com/reservations/embed.js"></script>
+
+
+<script>
+
+SevenroomsWidget.init({
+      venueId: 'mamnoon',
+      triggerId: 'reservemamnoonbutton',
+      type: 'reservations',
+      defaultPartySize: 2,
+      defaultTime: '7:00PM',
+      allVenues: ['mamnoon'],
+  })
+
+</script>
+
+
+
+
+<!-- <div id="sr-events-root" class="sr-sm sr-dark sr-#d3b316">
+  New Year's Eve Party
+</div> -->
+<script>
+  SEVENROOMS_VENUE_ID =  "mamnoon"
+</script>
+<script src="https://www.sevenrooms.com/embed.js"></script>
+
+
+
+<script>
+
+$('.external-link').click(function(){
+
+   window.open(this.href);
+    return false;
+
+});
+
+
+</script>
+
+</body>
+<html>

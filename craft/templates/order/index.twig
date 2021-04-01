@@ -1,0 +1,78 @@
+{% set blogpagevariable = 'blogpage' %}
+{% extends "_layout" %}
+{% set metaRobots = "noindex, follow" %}
+
+{% block content %}
+
+<div class="caviar-menu">
+
+<div class="container margin-top">
+			<div class="row-fluid">
+				<div class="span12 text-center">
+
+
+		{% for order in craft.entries.section('order') %}
+					<h2>{{ order.title }}</h2>
+					<p>{{ order.orderDescription }}</p>
+			{% endfor %}
+
+
+
+					<br>
+					<script src='https://www.trycaviar.com/embed.js'></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$('.offer-tiles_category-name').hide();
+
+</script>
+
+
+    <a class='caviar-embed-menu' href='https://www.trycaviar.com/seattle/mamnoon-628'>Order from Caviar</a>
+    <script type='text/javascript'>sq.caviar.MenuEmbed.transformAll()</script>
+
+					<ul class="menu-nav">
+						{% for menu in menus %}
+						<li data-menu-id="menu-{{ menu.id }}"{% if loop.first %} class="active"{% endif %}>
+							<a href="#" onclick="_gaq.push(['_trackEvent', 'content', 'menu', 'menu-{{ menu.title }}'])">
+								{{ menu.title }}
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+	</div>
+
+
+</div>
+
+
+{% block script %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+var disqus_shortname = '{{ generalInfo.disqusId }}';
+
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+
+$('iframe').contents().find("head").append($("<style type='text/css'>  .global-header-wrapper{display:none;}  </style>"));
+
+</script>
+
+
+
+
+{% endblock %}
+
+{% endblock %}

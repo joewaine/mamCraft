@@ -1,0 +1,15 @@
+{% extends "_layout" %}
+{% set metaDescription = entry.metaDescription %}
+{% set metaKeywords = entry.metaKeywords %}
+
+{#
+
+This template is secretly just here so we can get a live preview of menu changes from the Craft control panel.
+
+#}
+
+{% block content %}
+
+	{% include "parts/menu" with { slug: entry.slug } %}
+
+{% endblock %}

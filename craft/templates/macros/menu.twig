@@ -1,0 +1,30 @@
+{% macro menuColumn(column) %}
+	
+	{% for itemGroup in column %}
+
+		{% if itemGroup.groupName is not empty %}<h4>{{ itemGroup.groupName }}</h4>{% endif %}
+		{% if itemGroup.caption is not empty %}<h6>{{ itemGroup.caption }}</h6>{% endif %}
+
+		<ul class="menu-items">
+		{%- for item in itemGroup.menuItems -%}
+			<li>
+				<p>
+					{% if item.heading is not empty %}<span class="name">{{ item.heading }}</span>{% endif %}
+					{% if item.price %} <span class="price">{{ item.price }}</span>{% endif %}
+					{%- if item.ingredients | length -%}
+						<br>
+						{%- for ingredient in item.ingredients -%}
+							{{- ingredient -}}{% if loop.last != true %}, {% endif %}
+						{%- endfor -%}
+					{%- endif -%}
+					{% if item.ingredients | length == 0%}<br>{% endif %}
+					{%- for note in item.comments.type('menuNote') -%}
+						{% if item.ingredients | length %}, {% endif %}{{ note.note }}
+					{%- endfor -%}
+				</p>
+			</li>
+		{%- endfor -%}
+		</ul>
+	{% endfor %}
+
+{% endmacro %}

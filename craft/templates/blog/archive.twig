@@ -1,0 +1,32 @@
+{% set blogpagevariable = 'blogpage' %}
+{% extends "_layout" %}
+{% set metaRobots = "noindex, follow" %}
+
+{% block content %}
+
+<div class="container margin-top">
+
+	<div class="span7 offset1">
+
+		<h2>Posts from {{ year }}</h2>
+
+		{% set entriesInYear = craft.entries.section('blog').limit(null).after(year).before(year+1) %}
+		{% for month, entries in entriesInYear | group("postDate|date('F')") %}
+
+			{% for post in entries %}
+				<div class="post-summary">
+
+					{% include "parts/post" with { entry: post, includeComments: true } %}
+
+				</div>
+			{% endfor %}
+
+		{% endfor %}
+
+	</div>
+
+	{% include "parts/blog-sidebar" %}
+
+</div>
+
+{% endblock %}

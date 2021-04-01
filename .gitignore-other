@@ -1,0 +1,7 @@
+craft/storage/runtime
+craft/storage/minimee
+public/assets/cache
+*.sublime-project
+*.sublime-workspace
+*.glue
+.cache

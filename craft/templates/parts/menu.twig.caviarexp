@@ -1,0 +1,89 @@
+{% import "macros/menu" as m %}
+
+{% if slug is defined %}
+	{% set menus = craft.entries({ section: 'menus', slug: slug }) %}
+{% else %}
+	{% set menus = craft.entries.section('menus') %}
+{% endif %}
+
+<div id="menu">
+	<div class="container">
+		<div class="padding-wrap">
+			<div class="row-fluid">
+				<div class="span12">
+
+					<h2>menu</h2>
+					<p>our menu changes to match the season. please call for any updates.</p>
+					<script src='https://www.trycaviar.com/embed.js'></script>
+    <a class='caviar-embed-menu' href='https://www.trycaviar.com/seattle/mamnoon-628'>Order from Caviar</a>
+    <script type='text/javascript'>sq.caviar.MenuEmbed.transformAll()</script>
+
+					<ul class="menu-nav">
+						{% for menu in menus %}
+						<li data-menu-id="menu-{{ menu.id }}"{% if loop.first %} class="active"{% endif %}>
+							<a href="#" onclick="_gaq.push(['_trackEvent', 'content', 'menu', 'menu-{{ menu.title }}'])">
+								{{ menu.title }}
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<hr>
+
+			{% for menu in menus %}
+			<div class="menu{% if loop.first %} active{% endif %}" id="menu-{{ menu.id }}">
+				<div class="row-fluid">
+
+					{% set numColumns = 0 %}
+
+					{% if menu.menuColumnOne | length %}
+						{% set numColumns = numColumns + 1 %}
+					{% endif %}
+
+					{% if menu.menuColumnTwo | length %}
+						{% set numColumns = numColumns + 1 %}
+					{% endif %}
+
+					{% if menu.menuColumnThree | length %}
+						{% set numColumns = numColumns + 1 %}
+					{% endif %}
+
+					{% if menu.menuColumnFour | length %}
+						{% set numColumns = numColumns + 1 %}
+					{% endif %}
+
+					{% set spanCount = 12 / numColumns %}
+
+					{% if menu.menuColumnOne | length %}
+					<div class="span{{ spanCount }}">
+						{{ m.menuColumn(menu.menuColumnOne) }}
+					</div>
+					{% endif %}
+
+					{% if menu.menuColumnTwo | length %}
+					<div class="span{{ spanCount }}">
+						{{ m.menuColumn(menu.menuColumnTwo) }}
+					</div>
+					{% endif %}
+
+					{% if menu.menuColumnThree | length %}
+					<div class="span{{ spanCount }}">
+						{{ m.menuColumn(menu.menuColumnThree) }}
+					</div>
+					{% endif %}
+
+					{% if menu.menuColumnFour | length %}
+					<div class="span{{ spanCount }}">
+						{{ m.menuColumn(menu.menuColumnFour) }}
+					</div>
+					{% endif %}
+
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>

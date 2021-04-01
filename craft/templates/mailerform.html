@@ -1,0 +1,284 @@
+<!-- section -->
+
+<!-- events booking -->
+
+<section style="" id="events-booking" class="events-booking">
+
+    <!-- <div class="events-dodecagon"> -->
+            <!-- events booking -->
+    <!-- </div> -->
+
+
+
+<div class="container">
+
+
+<div class="row">
+
+<div class="span12">
+    <h2>{{ entry.eventsBlockTitle }}</h2>
+
+<p>{{ entry.eventsBlockDescription }}</p>
+<br>
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div class="span6">
+
+
+{% if entry.bookingFormSlides | length %}
+<section id="slideshow">
+
+    <div class="slides">
+
+        <ul>
+            {% for slide in entry.bookingFormSlides %}
+            <li>
+                <img {% if loop.first %}src{% else %}data-src{% endif %}="{{ slide.getUrl('largeSlide') }}" {% if loop.first != true %}src="/assets/img/blank.gif" class="lazy" {% endif %}width="1280" height="720" alt="">
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% if entry.bookingFormSlides | length > 1 %}
+        <div class="slides-nav">
+            <a class="prev" href="#">&lt;</a>
+            <a class="next" href="#">&gt;</a>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endif %}
+
+
+</div>
+
+<div class="span6" style="position: relative;">
+<div style="">
+     <form id="ajax-contact" method="post" action="mailer.php" style="position:relative;">
+
+            <div class="field for-recipientEmail" style="display:none;">
+                <!-- <label for="name">Name:</label> -->
+        <input placeholder="recipient" type="text" id="recipient" name="recipient" value="{{ entry.recipientEmail }}" required>
+            </div>
+
+            <div class="field for-name">
+                <!-- <label for="name">Name:</label> -->
+                <input placeholder="name" type="text" id="name" name="name" required>
+            </div>
+
+            <div class="field for-phone">
+                <!-- <label for="email">Phone:</label> -->
+                <input placeholder="phone number" type="phone" id="phone" name="phone" required>
+            </div>
+
+            <div class="field for-email">
+                <!-- <label for="email">Email:</label> -->
+                <input placeholder="email" type="email" id="email" name="email" required>
+            </div>
+
+
+            <div class="field for-subject">
+                <!-- <label for="subject">Subject:</label> -->
+                <input placeholder="subject" type="text" id="subject" name="subject" required>
+            </div>
+
+           <div class="field for-firstname" style="display: none;">
+                <!-- <label for="subject">Subject:</label> -->
+                <input placeholder="firstname" type="text" id="firstname" name="firstname">
+            </div>
+
+
+            <div class="field for-message">
+                <!-- <label for="message">Message:</label> -->
+
+
+
+
+                <textarea placeholder="message" id="message" name="message" required></textarea>
+
+
+
+            </div>
+
+
+<div class="field submission">
+    <input class="redsendbutton" type="submit" value="SEND" style="z-index: 1000;">
+
+</div>
+
+<!--
+            <div class="field">
+                <button type="submit">Send</button>
+            </div> -->
+        </form>
+
+
+
+<br>
+      <div id="form-messages">
+
+<div class="good-message">Thank You! Your message has been sent.</div>
+
+<div class="bad-message">Something went wrong, please try sending the message again or contact us by phone at <a href="tel:+12064578287">206 457 8287</a></div>
+
+</div>
+
+
+<div style="display: none;">
+    <h1>here is the space for the next form</h1>
+
+
+  <form action="https://mamnoonrestaurant.createsend.com/t/i/s/adrkjk/" method="post" id="subForm">
+
+      <input id="fieldName" name="cm-name" type="text" />
+      <br />
+       <input id="fieldEmail" name="cm-adrkjk-adrkjk" type="email" required /><br />
+          <button class="submit" type="submit" value="Subscribe">Subscribe</button>
+  </form>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+      $(function () {
+          $('#subForm').submit(function (e) {
+              e.preventDefault();
+              $.getJSON(
+              this.action + "?callback=?",
+              $(this).serialize(),
+              function (data) {
+                  if (data.Status === 400) {
+                      // alert("Error: " + data.Message);
+                      // $('#modal .error').slideDown();
+                      // $('#modal .error').delay( 800 ).fadeOut();
+                  } else { // 200
+                      // $('#modal .thankyou').slideDown().delay( 2000 ).fadeOut();
+                      // $('#modal').delay( 800 ).fadeOut();
+$('#fieldEmail, #fieldName').val('');
+                  }
+              });
+          });
+      });
+
+
+$( "input#name" ).change(function() {
+    $('input#fieldName').val($(this).val());
+});
+
+$( "input#email" ).change(function() {
+    $('input#fieldEmail').val($(this).val());
+});
+
+  </script>
+
+
+
+</div>
+
+
+
+
+</div>
+
+      </div>    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- script -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+// form
+    window.csrfTokenName = "{{ craft.config.get('csrfTokenName') }}";
+    window.csrfTokenValue = "{{ craft.request.getCsrfToken }}";
+
+$(function() {
+
+    // Get the form.
+    var form = $('#ajax-contact');
+
+    // Get the messages div.
+    var formMessages = $('#form-messages');
+
+    // Set up an event listener for the contact form.
+    $(form).submit(function(e) {
+
+if($('#firstname').val() === ''){
+
+        // Stop the browser from submitting the form.
+        e.preventDefault();
+
+        // Serialize the form data.
+        var formData = $(form).serialize();
+
+        // formData[window.csrfTokenName] = window.csrfTokenValue;
+
+        // Submit the form using AJAX.
+        $.ajax({
+            type: 'POST',
+            url: $(form).attr('action'),
+            data: formData
+        })
+        .done(function(response) {
+            // Make sure that the formMessages div has the 'success' class.
+            $(formMessages).removeClass('error');
+            $(formMessages).addClass('success');
+
+            $(formMessages).delay(3000).fadeOut('slow');
+
+            // Set the message text.
+            $(formMessages).text(response);
+            // Clear the form.
+            $('#name').val('');
+            $('#phone').val('');
+            $('#email').val('');
+            $('#subject').val('');
+            $('#message').val('');
+        })
+        .fail(function(data) {
+            // Make sure that the formMessages div has the 'error' class.
+            $(formMessages).removeClass('success');
+            $(formMessages).addClass('error');
+
+            // Set the message text.
+            if (data.responseText !== '') {
+                $(formMessages).text(data.responseText);
+            } else {
+                $(formMessages).text('Oops! An error occured and your message could not be sent.');
+            }
+        });
+
+          $('#subForm button').click();
+console.log('empty')
+}else{
+console.log($('#firstname').val())
+
+          $(formMessages).text('Oops! An error occured and your message could not be sent.');
+
+}        
+
+    });
+});
+// form
+
+
+
+
+
+</script>
+<!-- script -->
+</section>
+<!-- events booking -->
+<!-- section
